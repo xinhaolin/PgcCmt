@@ -1,5 +1,7 @@
 # PgcCmt
-基于js的可插入表情的评论框
+
+基于js的可插入表情的评论框， <a href="https://github.com/xinhaolin/VueCLib" target="_blank" >Vue版本</a><br>
+技术细节请看：<a href="https://juejin.cn/post/6882577678692515847" target="_blank" >掘金地址</a>，<br> 由于技术点基本一致，所以就不再写一篇文章记录 
 
 ## Demo
 
