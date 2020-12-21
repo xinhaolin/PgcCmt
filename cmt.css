@@ -1,0 +1,97 @@
+.cmt_box {
+  position: relative;
+  width: 500px;
+  height: 260px;
+  border: solid 1px #ccc;
+  font-size: 0;
+}
+
+.cmt_box .content_edit {
+  width: 100%;
+  height: 200px;
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+  outline: none;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.cmt_box .handle_list {
+  position: relative;
+  height: 36px;
+}
+
+.cmt_box .em_icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0px;
+  left: 10px;
+}
+
+.cmt_box .btn_submit {
+  width: 68px;
+  height: 32px;
+  background-color: #cccccc;
+  border-radius: 16px;
+  text-align: center;
+  line-height: 32px;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0px;
+  right: 10px;
+}
+.btn_submit.btn_submit_y {
+    background-color: #f95354;
+}
+
+.icon_list {
+  position: absolute;
+  top: 45px;
+  left: -5px;
+  width: 280px;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: 0 5px 18px 0 rgba(0, 0, 0, 0.16);
+  padding: 15px;
+  z-index: 100;
+}
+
+.icon_list::before {
+  content: "";
+  width: 0;
+  height: 0;
+  display: block;
+  padding: 0;
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+}
+
+.icon_box {
+  list-style: none;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+}
+
+.icon_item {
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.icon_item img {
+  width: 30px;
+  height: 30px;
+}

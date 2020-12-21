@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="gbk">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="//www1.pconline.com.cn/pgc/20201221/cmt/cmt.css">
+    <style>
+      .reply{
+        cursor: pointer;
+      }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <p class="reply">回复</p>
+        <div id="cmt_wapper" style="display: none;" >
+            <div class="cmt_box">
+                <p class="content_edit"></p>
+                <div class="handle_list">
+                    <img class="em_icon" src="//www1.pconline.com.cn/20200929/pgc/cmt/icon.png" />
+                    <div class="btn_submit">发布</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <p class="reply">回复</p>
+        <div id="cmt_wapper1" style="display: none;" >
+            <div class="cmt_box">
+                <p class="content_edit"></p>
+                <div class="handle_list">
+                    <img class="em_icon" src="//www1.pconline.com.cn/20200929/pgc/cmt/icon.png" />
+                    <div class="btn_submit">发布</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script src="//www1.pconline.com.cn/pgc/20201221/cmt/cmt.js"></script>
+<script>
+    var imgList = [
+        "//gold-cdn.xitu.io/asset/twemoji/2.6.0/svg/1f603.svg",
+    ]
+    let cmt = new PgcCmt({
+        el: 'cmt_wapper',
+        initStatus: false,
+        emoticon: imgList,
+        changeEvent: (text) => {
+            console.log('输出text', text)
+        },
+        submitEvent: (err, msg, text, info) => {
+            console.log('提交', err, msg, text, info)
+            if(err){
+                alert('提交失败，请打开F12控制台查看')
+            }else{
+                alert('提交成功，请打开F12控制台查看')
+            }
+        }
+    })
+    let cmt2 = new PgcCmt({
+        el: 'cmt_wapper1',
+        initStatus: false,
+        emoticon: imgList,
+        changeEvent: (text) => {
+            console.log('22222222输出text', text)
+        },
+        submitEvent: (err, msg, text, info) => {
+            console.log('222222222222提交', err, msg, text, info)
+            if(err){
+                alert('提交失败，请打开F12控制台查看')
+            }else{
+                alert('提交成功，请打开F12控制台查看')
+            }
+        }
+    })
+
+    let replyList = document.getElementsByClassName('reply')
+    if (replyList && replyList.length) {
+        replyList = Array.from(replyList)
+    }
+    let cmtList = [cmt,cmt2]
+    let showIndex = null;  // 记录显示的索引
+    replyList.forEach(item => {
+        item.addEventListener('click', function () {
+            let index = replyList.indexOf(this)
+            if(showIndex === null ){
+                showIndex = index
+                cmtList[index].show()
+            } else if (showIndex !== index){
+                cmtList[showIndex].hide()
+                cmtList[index].show()
+                showIndex = index
+            } else {
+                cmtList[showIndex].hide()
+                showIndex = null;
+            }
+        })
+    })
+</script>
+
+</html>
