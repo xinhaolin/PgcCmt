@@ -29,6 +29,9 @@ function PgcCmt(config) {
     if (!config.el || !document.getElementById(config.el)) {
       throw Error('缺少el参数，或者el参数为空')
     }
+    if(config.emoticon.length >5){
+      throw Error("最多只能有5套表情包")
+    }
     this.init(config)
   }
   PgcCmt.prototype.init = function (config) {
@@ -54,7 +57,7 @@ function PgcCmt(config) {
     this.changeEvent = config.changeEvent || function(){}
     this.submitEvent = config.submitEvent || function(){}
     document.getElementById(this.el).querySelector('.content_edit').setAttribute("contenteditable",true)
-    document.getElementById(this.el).style.display = "none"
+
   }
   /**
    * @description 展示评论框
@@ -89,17 +92,63 @@ function PgcCmt(config) {
       throw Error('跟节点内必须有以handle_list为类的节点')
     }
     const iconPlane = document.createElement('div')
-    const iconUl = document.createElement('ul')
+    const iconDiv = document.createElement('div')
+    const tabPlane = document.createElement('ul')
+    let icon_boxs = []
     iconPlane.classList.add('icon_list')
-    iconUl.classList.add('icon_box')
-    let innerHtml = ""
-    this.emoticon.forEach(url => {
-      innerHtml += `<li class="icon_item" ><img src="${url}" /></li>`
+    iconDiv.classList.add('icon_box')
+    tabPlane.classList.add('icon_tab')
+    let tabInnerHtml = ""
+    this.emoticon.forEach((item,index) => {
+      let className = "tab_li"
+      if(index === 0){
+        className += " tab_current"
+      }
+      tabInnerHtml += `<li class="${className}" ><img width="30" height="30" src="${item.icon}" /></li>`
+      let divPlane = document.createElement('div')
+      divPlane.classList.add('icon_plane')
+      if(index !==0){
+        divPlane.style.display = "none"
+      }
+      let listInnerHtml = ""
+      item.list.forEach(url=>{
+        listInnerHtml += `<li class="icon_item" ><img src="${url}" /></li>`
+      })
+      divPlane.innerHTML = listInnerHtml
+      icon_boxs.push(divPlane)
     });
-    iconUl.innerHTML = innerHtml
-    iconPlane.appendChild(iconUl)
+    icon_boxs.forEach(dom=>{
+      iconDiv.appendChild(dom)
+    })
+    tabPlane.innerHTML = tabInnerHtml
+    iconPlane.appendChild(tabPlane)
+    iconPlane.appendChild(iconDiv)
     handleBox.appendChild(iconPlane)
     iconPlane.style.display = "none";
+    let tabLists = iconPlane.querySelectorAll('.icon_tab li')
+    if(tabLists){
+      let tabArr = Array.from(tabLists)
+      tabArr.forEach(item=>{
+        item.addEventListener('click',function(){
+          let index = tabArr.indexOf(this)
+          tabArr.forEach((tabItem,i)=>{
+            if(i == index){
+              tabItem.classList.add('tab_current')
+            }else{
+              tabItem.classList.remove('tab_current')
+            } 
+          })
+          Array.from(iconPlane.querySelectorAll('.icon_plane')).forEach((pItem,count)=>{
+            if(count == index){
+              pItem.style.display = "block"
+            }else{
+              pItem.style.display = "none"
+            }
+          })
+        })
+      })
+    }
+    
   }
   /**
    * @description 初始化事件
@@ -136,6 +185,8 @@ function PgcCmt(config) {
     })
     if(this.config.initStatus){
         window.addEventListener("click", this.setHideClick);
+    }else{
+        document.getElementById(this.el).style.display = "none"
     }
   }
   /**
@@ -341,11 +392,17 @@ function PgcCmt(config) {
       const that = this;
     const iconPlane = document.querySelectorAll('.icon_list')
     let target = event.srcElement;
-    let nameList = ["icon_item", "icon_list", "icon_box"];
+
+    let nameList = ["icon_item", "icon_list", "icon_box","icon_tab","icon_plane","tab_li"];
+    console.log('target',target.parentElement && target.parentElement.className.indexOf('tab_li') !==-1 )
+    if( target.parentElement && target.parentElement.className.indexOf('tab_li') !== -1){
+      return;
+    }
     if (
-      !nameList.includes(target.className) &&
+      !nameList.includes(target.className) ||
       (target.parentElement &&
-      !nameList.includes(target.parentElement.className))
+      (!nameList.includes(target.parentElement.className)))
+     
     ) {
       for(let i = 0; i<= iconPlane.length-1; i++){
         iconPlane[i].style.display =  'none'
