@@ -79,12 +79,25 @@
   padding: 0;
   border-bottom: solid 1px #ccc;
 }
+
 .icon_tab li{
   /* border-bottom: solid 2px #f95354; */
   padding: 5px;
+  position: relative;
 }
 .icon_tab li+li{
   margin-left: 10px;
+}
+.tab_current::after{
+  content: '';
+  display: block;
+  height: 2px;
+  border-radius: 1px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  background-color: #f95354;
 }
 .icon_box {
   list-style: none;
@@ -95,8 +108,17 @@
   padding: 0;
   margin: 10px 0 0;
 }
-
+.icon_plane{
+  list-style: none;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 10px 0 0;
+}
 .icon_item {
+  display: inline-block;
   padding: 5px;
   text-align: center;
   cursor: pointer;

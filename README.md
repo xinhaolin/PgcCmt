@@ -16,6 +16,7 @@
 5. 若要起始状态为隐藏，请设置完initStatus为false后 在el节点上设置display：none，不然将会有闪烁现象
 6. 尽量不要一次性显示多个评论框，最好每次一个
 7. 样式可以自行覆盖，节点也可自行添加，但是基本模板节点必须有，不然会找不到节点导致报错
+8. 支持多套表情，表情列表需严格按照格式来
 
 ## 实例参数说明
 
@@ -52,7 +53,7 @@
         </div>
       </div>
  ```
- 3. 创建评论组件（每个评论组件需实例化一次，实例化时需传递一个对象作为参数，对象属性请看下方参数说明）
+ 3. 创建评论组件（每个评论组件需实例化一次，实例化时需传递一个对象作为参数，对象属性请看上方参数说明）
  ``` html
  <script >
    new PgcCmt({
@@ -73,3 +74,18 @@
     })
  </script>
  ```
+  4. 表情列表格式
+   
+  ```javascript
+    // 一个对象为一套表情，最多5套
+   const imgList = [
+     {
+     icon: '//www1.pconline.com.cn/20200929/pgc/cmt/icon.png', // tab的icon
+      width: 30, // tab icon的宽度
+      height: 30, // tab icon的高度
+      list: [
+        "//gold-cdn.xitu.io/asset/twemoji/2.6.0/svg/1f603.svg"
+      ]
+      }
+   ]
+  ```
