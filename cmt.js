@@ -212,7 +212,8 @@ PgcCmt.prototype.innerEmoticon = function (url) {
     //  要判断的光标状态
     if (
       winSn.focusNode.className !== "content_edit" &&
-      winSn.focusNode.parentElement.className !== "content_edit"
+      winSn.focusNode.parentElement.className !== "content_edit"&&
+      !this.isAncestorsDom(winSn.baseNode,'content_edit')
     ) {
       winSn.selectAllChildren(inputDom);
       winSn.collapseToEnd();
@@ -240,6 +241,23 @@ PgcCmt.prototype.innerEmoticon = function (url) {
   }
 }
 /**
+ * 判断某个元素的祖先类是否包含某个类名
+ * @param {Dom} dom
+ * @param {String} className
+ */
+PgcCmt.prototype.isAncestorsDom = function (dom,className) {
+  let tempDom = dom
+  if(!tempDom || !className ) return false
+  while (tempDom.nodeName.toUpperCase()!=='BODY') {
+
+    if(tempDom.classList && Array.from(tempDom.classList).includes(className)){
+      return true
+    }
+    tempDom = tempDom.parentElement
+  }
+  return false
+}
+/**
  * @description 判断字符长度（空格&nbsp; 要当1个字符算，所以最后要给每个空格减去5）
  * @param {string} sSource 文本内容
  */
@@ -263,6 +281,8 @@ PgcCmt.prototype.getCharLen = function (sSource) {
  */
 PgcCmt.prototype.changeText = function (e) {
     let text = e.srcElement.innerHTML;
+    // let text = e.srcElement.innerHTML.replace(/<(?!\/?IMG)[^<>]*>/ig,'')
+    // console.log('过滤后的标签',text)
     let emitText = text;
     if (this.limtText) {
       let textObj = this.paseText(text);
@@ -276,6 +296,8 @@ PgcCmt.prototype.changeText = function (e) {
         this.toLast(e.srcElement);
       }
     }
+    // e.srcElement.innerHTML = emitText;
+    // this.toLast(e.srcElement);
 
     this.canSubmit = emitText.length ? true : false;
     const btn = document.getElementById(this.el).querySelector('.btn_submit')
