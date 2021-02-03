@@ -4,7 +4,7 @@
 技术细节请看：<a href="https://juejin.cn/post/6882577678692515847" target="_blank" >掘金地址</a>，<br> 由于技术点基本一致，所以就不再写一篇文章记录 
 
 ## Demo
-
+<img src="https://www1.pconline.com.cn/lib/cmt/img/zhlasrdwe/1612341799.jpg" width = "300" height = "200" alt="图片名称" align=center />
 <a href="https://www1.pconline.com.cn/pgc/20201221/cmt/index.html" target="_blank" >demo地址</a>
 
 ## 组件说明
